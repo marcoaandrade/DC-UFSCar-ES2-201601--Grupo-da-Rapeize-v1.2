@@ -66,7 +66,6 @@ import net.sf.jabref.sql.importer.DbImportAction;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import osx.macadapter.MacAdapter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -647,11 +646,7 @@ public class JabRefFrame extends JFrame implements OutputPrinter {
         //if the events happen too early (ie when the window is not initialized yet), the
         //opened (double-clicked) documents are not displayed.
         if (OS.OS_X) {
-            try {
-                new MacAdapter().registerMacEvents(this);
-            } catch (Exception e) {
-                LOGGER.fatal("Could not interface with Mac OS X methods.", e);
-            }
+            LOGGER.fatal("This program is not designed to run at Mac OS X");
         }
     }
 
@@ -715,23 +710,6 @@ public class JabRefFrame extends JFrame implements OutputPrinter {
         generalFetcher = new GeneralFetcher(sidePaneManager, this);
 
         sidePaneManager.register("groups", groupSelector);
-    }
-
-    /**
-     * The MacAdapter calls this method when a ".bib" file has been double-clicked from the Finder.
-     */
-    public void openAction(String filePath) {
-        File file = new File(filePath);
-        // all the logic is done in openIt. Even raising an existing panel
-        getOpenDatabaseAction().openFile(file, true);
-    }
-
-    // General info dialog.  The MacAdapter calls this method when "About"
-    // is selected from the application menu.
-    public void about() {
-        // reuse the normal about action
-        // null as parameter is OK as the code of actionPerformed does not rely on the data sent in the event.
-        about.actionPerformed(null);
     }
 
     // General preferences dialog.  The MacAdapter calls this method when "Preferences..."
