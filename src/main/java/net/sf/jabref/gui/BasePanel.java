@@ -1039,8 +1039,6 @@ public class BasePanel extends JPanel implements ClipboardOwner, FileUpdateListe
         actions.put(Actions.ADD_TO_GROUP, new GroupAddRemoveDialog(this, true, false));
         actions.put(Actions.REMOVE_FROM_GROUP, new GroupAddRemoveDialog(this, false, false));
         actions.put(Actions.MOVE_TO_GROUP, new GroupAddRemoveDialog(this, true, true));
-
-        actions.put(Actions.DOWNLOAD_FULL_TEXT, new FindFullTextAction(this));
     }
 
     /**

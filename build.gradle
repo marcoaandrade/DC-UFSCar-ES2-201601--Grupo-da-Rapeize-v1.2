@@ -34,11 +34,13 @@ configurations {
 }
 
 dependencies {
-    compile 'com.jgoodies:jgoodies-common:1.8.1'
-    compile 'com.jgoodies:jgoodies-forms:1.9.0'
-    compile 'com.jgoodies:jgoodies-looks:2.7.0'
+    compile 'com.jgoodies:jgoodies-common:1.4.0'
 
-    compile 'org.swinglabs:swingx:1.6.1' // do not update, 1.6.5.1 is broken
+    // TODO: 1.6.0 available in debian, but JabRef requires later version
+    compile 'com.jgoodies:jgoodies-forms:1.9.0'
+    compile 'com.jgoodies:jgoodies-looks:2.5.2'
+
+    compile 'org.swinglabs:swingx-core:1.6.2-2' // do not update, 1.6.5.1 is broken
 
     compile 'org.apache.pdfbox:pdfbox:1.8.11'
     compile 'org.apache.pdfbox:fontbox:1.8.11'
@@ -50,34 +52,42 @@ dependencies {
     compile 'org.openoffice:jurt:4.1.2'
     compile 'org.openoffice:ridl:4.1.2'
     compile 'org.openoffice:unoil:4.1.2'
+    compile fileTree(dir: '/usr/lib/libreoffice/program/classes', includes: ['*.jar'])
 
     antlr3 'org.antlr:antlr:3.5.2'
     compile 'org.antlr:antlr-runtime:3.5.2'
 
-    antlr4 'org.antlr:antlr4:4.5.2-1'
-    compile 'org.antlr:antlr4-runtime:4.5.2-1'
+    antlr4 'org.antlr:antlr4:4.5.3'
+    compile 'org.antlr:antlr4-runtime:4.5.3'
 
     compile 'mysql:mysql-connector-java:5.1.38'
-    compile 'org.postgresql:postgresql:9.4.1208'
+    compile 'org.postgresql:postgresql:9.2-1002-jdbc4'
 
-    compile 'net.java.dev.glazedlists:glazedlists_java15:1.9.1'
-    compile fileTree(dir: 'lib', includes: ['*.jar'])
+    compile 'net.java.dev.glazedlists:glazedlists_java15:1.9.0'
 
     compile 'com.google.guava:guava:19.0'
 
     compile 'commons-logging:commons-logging:1.2'
 
     compile 'org.jsoup:jsoup:1.8.3'
-    compile 'com.mashape.unirest:unirest-java:1.4.8'
+    //compile 'com.mashape.unirest:unirest-java:1.4.8'
 
-    compile 'org.apache.logging.log4j:log4j-jcl:2.5'
-    compile 'org.apache.logging.log4j:log4j-api:2.5'
-    compile 'org.apache.logging.log4j:log4j-core:2.5'
+    // quick hack for disabling unirest-java
+    // TODO: replace this with libandroid-json-java when packaging
+    compile 'org.json:json:20140107'
+
+    compile 'org.apache.logging.log4j:log4j-jcl:2.4'
+    compile 'org.apache.logging.log4j:log4j-api:2.4'
+    compile 'org.apache.logging.log4j:log4j-core:2.4'
+
+    compile fileTree(dir: 'lib', includes: ['*.jar'])
 
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.10.19'
-    testCompile 'com.github.tomakehurst:wiremock:1.58'
-	testCompile 'org.assertj:assertj-swing-junit:3.0.2'
+    testCompile 'org.mockito:mockito-core:1.9.5'
+    //testCompile 'com.github.tomakehurst:wiremock:1.58'
+
+    // 2.3.0 not available at jcenter
+	testCompile 'org.assertj:assertj-swing-junit:2.2.0'
 }
 
 sourceSets {
