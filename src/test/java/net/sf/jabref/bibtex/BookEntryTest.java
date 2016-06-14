@@ -68,3 +68,32 @@ public class BookEntryTest {
     }
     
 }
+
+//Caso de teste 2: Entradas obrigatórias parcialmente preenchidas
+    @Test
+    public void testInsertBook2() throws IOException {
+        StringWriter stringWriter = new StringWriter();
+
+        BibEntry entry = new BibEntry("Another book", "book");
+
+        entry.setField("title", "Another book");
+        entry.setField("author", "Brian K. Vaughan");
+        entry.setField("editor", "Vertigo");
+        entry.setField("bibtexkey", "V9");
+
+        writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
+
+        String atual = stringWriter.toString();
+
+        String esperado = Globals.NEWLINE + "@Book{V9," + Globals.NEWLINE + "  title  = {Another book},"
+                + Globals.NEWLINE + "  author = {Brian K. Vaughan}," + Globals.NEWLINE + "  editor = {Vertigo},"
+                + Globals.NEWLINE + "}" + Globals.NEWLINE;
+
+        assertEquals("V9", entry.getCiteKey());
+        assertEquals(4, entry.getFieldNames().size());
+        Set<String> fields = entry.getFieldNames();
+        assertTrue(fields.contains("author"));
+        assertEquals("Brian K. Vaughan", entry.getField("author"));
+
+        assertEquals(esperado, atual);
+    }
