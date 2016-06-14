@@ -43,7 +43,8 @@ public class ParcialText {
         writer = new BibEntryWriter(new LatexFieldFormatter(), true);
     }
 
-     //Entrada de campos obrigatorios
+
+     //Caso 1: TODOS os Campos Obrigatorios preenchidos
     @Test
     public void testOBGT() throws IOException {
         StringWriter stringWriter = new StringWriter();
@@ -74,7 +75,6 @@ public class ParcialText {
         assertEquals(expected, actual);
     }
 
-    //Teste  de campos obrigatorios sem inserção de BibTexKey
     @Test
     public void OBGTroundTripTest() throws IOException {
         // @formatter:off
@@ -107,13 +107,13 @@ public class ParcialText {
         assertEquals(bibtexEntry, actual);
     }
 
-    //Entrada parcial de campos obrigatórios
+
+    //Caso 2: Campos Obrigatórios PARCIALMENTE preenchidos
     @Test
     public void testOBGP() throws IOException {
         StringWriter stringWriter = new StringWriter();
 
         BibEntry entry = new BibEntry("1234", "article");
-        //entrada de campos obrigatorios
         entry.setField("author", "NomeAutorTest");
         entry.setField("title", "titulo_test");
         writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
@@ -130,7 +130,6 @@ public class ParcialText {
         assertEquals(expected, actual);
     }
     
-    //Entrada parcial de campos obrigatórios
     @Test
     public void OBGProundTripTest() throws IOException {
         // @formatter:off
@@ -162,6 +161,7 @@ public class ParcialText {
     }
     
     
+    //Caso 3: Campos obrigatórios vazios
     @Test
     public void testVazio() throws IOException {
         StringWriter stringWriter = new StringWriter();
@@ -174,12 +174,7 @@ public class ParcialText {
         // @formatter:off
         String expected = Globals.NEWLINE + "@Article{," + Globals.NEWLINE +
                        "}"+ Globals.NEWLINE;
-
-
-
-
         // @formatter:on
-
         assertEquals(expected, actual);
     }
 
@@ -208,7 +203,7 @@ public class ParcialText {
         assertEquals(bibtexEntry, actual);
     }
     
-    //teste do campos opcionais parcialmente preenchidos
+    //Caso 4: Campos opcionais PARCIALMENTE preenchidos
     @Test
     public void testOP() throws IOException {
         StringWriter stringWriter = new StringWriter();
@@ -238,11 +233,7 @@ public class ParcialText {
                 "  notes   = {notas_test}," + Globals.NEWLINE +
                 "}"+ Globals.NEWLINE;
 
-
-
-
         // @formatter:on
-
         assertEquals(expected, actual);
     }
 
@@ -280,11 +271,9 @@ public class ParcialText {
 
         assertEquals(bibtexEntry, actual);
     }
-    
-    
-}
 
-//Teste de todos os campos opcionais totalmente preenchidos
+
+    //Caso 5: Campos Opcionais totalmente preenchidos
     @Test
     public void testOT() throws IOException {
         StringWriter stringWriter = new StringWriter();
@@ -317,16 +306,11 @@ public class ParcialText {
                 "  month   = {mes_publicação_test}," + Globals.NEWLINE +
                 "  notes   = {notas_test}," + Globals.NEWLINE +
                 "}"+ Globals.NEWLINE;
-
-
-
-
         // @formatter:on
 
         assertEquals(expected, actual);
     }
 
-    //teste campos opcionais parcialmente preenchidos
     @Test
     public void OTroundTripTest() throws IOException {
         // @formatter:off
@@ -363,5 +347,7 @@ public class ParcialText {
 
         assertEquals(bibtexEntry, actual);
     }
-
-
+    
+    //Caso 6: Artigo com TODOS os campos possiveis preenchidos
+    
+}
