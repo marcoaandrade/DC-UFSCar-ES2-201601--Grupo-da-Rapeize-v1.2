@@ -1,3 +1,17 @@
 Testes para inserção presente nos arquivos:
 Artigo -ParcialText.java
 Livro  -BookEntryTest.java
+
+
+O que falta finalizar:
+-Importacao de um arquivo .bib (Marco Andrade)
+-Manutencao Ano (Ilgner)
+-Manutencao simples (Mudanca de cor de uma insercao valida)
+  -Importacao de um .doc(?)
+  -mudança da cor de insercao(?)
+-Terminar documentação de requitos
+ -Adicionar o .doc/.pdf nesta pasta
+-Terminar documentacao dos testes de inserçao e manutencao
+  -Adicionar o .doc/.pdf nessa pasta
+-Adicionar a importacao CSV (Marco Uski)
+
