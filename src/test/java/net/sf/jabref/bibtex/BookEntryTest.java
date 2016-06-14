@@ -97,3 +97,45 @@ public class BookEntryTest {
 
         assertEquals(esperado, atual);
     }
+    
+     //Caso de teste 3: Entradas Obrigatórias e Opcionais totalmente preenchidas
+    @Test
+    public void testInsertBook3() throws IOException {
+        StringWriter stringWriter = new StringWriter();
+
+        BibEntry entry = new BibEntry("Book X", "book");
+
+        entry.setField("title", "Book X");
+        entry.setField("publisher", "ABC");
+        entry.setField("year", "2012");
+        entry.setField("author", "Neal Adams");
+        entry.setField("editor", "Editor EDT");
+        entry.setField("bibtexkey", "X2");
+        entry.setField("volume", "Three");
+        entry.setField("series", "123");
+        entry.setField("edition", "1st");
+        entry.setField("note", "Note");
+        entry.setField("number", "43");
+        entry.setField("Address", "1234");
+        entry.setField("Month", "January");
+
+        writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
+
+        String atual = stringWriter.toString();
+
+        String esperado = Globals.NEWLINE + "@Book{X2," + Globals.NEWLINE + "  title     = {Book X}," + Globals.NEWLINE
+                + "  publisher = {ABC}," + Globals.NEWLINE + "  year      = {2012}," + Globals.NEWLINE
+                + "  author    = {Neal Adams}," + Globals.NEWLINE + "  editor    = {Editor EDT}," + Globals.NEWLINE
+                + "  volume    = {Three}," + Globals.NEWLINE + "  number    = {43}," + Globals.NEWLINE
+                + "  series    = {123}," + Globals.NEWLINE + "  address   = {1234}," + Globals.NEWLINE
+                + "  edition   = {1st}," + Globals.NEWLINE + "  month     = {January}," + Globals.NEWLINE
+                + "  note      = {Note}," + Globals.NEWLINE + "}" + Globals.NEWLINE;
+
+        assertEquals("X2", entry.getCiteKey());
+        assertEquals(13, entry.getFieldNames().size());
+        Set<String> fields = entry.getFieldNames();
+        assertTrue(fields.contains("author"));
+        assertEquals("Neal Adams", entry.getField("author"));
+
+        assertEquals(esperado, atual);
+    }
