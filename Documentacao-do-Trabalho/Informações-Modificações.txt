@@ -1,1 +1,3 @@
-
+Testes para inserção presente nos arquivos:
+Artigo -ParcialText.java
+Livro  -BookEntryTest.java
