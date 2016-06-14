@@ -2,6 +2,9 @@ Testes para inserção presente nos arquivos:
 Artigo -ParcialText.java
 Livro  -BookEntryTest.java
 
+IMPORTANTE:
+Antes de realizar/adicionar qualquer manutencao, vamos terminar os testes antes e salvar para que o professor possa rodar!!
+Vamos acabar enviando 2 arquivos jabRef(?)
 
 O que falta finalizar:
 -Importacao de um arquivo .bib (Marco Andrade)
@@ -23,4 +26,6 @@ Testes de importação
 Manutenção referente ao ano - Ilgner
 Manutenção para validar os campos com cores (Verde válido - Vermelho Inváido)
 Teste referente a essa manutenção
+
+
 
