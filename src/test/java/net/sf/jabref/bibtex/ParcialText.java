@@ -43,12 +43,12 @@ public class ParcialText {
         writer = new BibEntryWriter(new LatexFieldFormatter(), true);
     }
 
+     //Entrada de campos obrigatorios
     @Test
     public void testOBGT() throws IOException {
         StringWriter stringWriter = new StringWriter();
 
         BibEntry entry = new BibEntry("1234", "article");
-        //entrada de campos obrigatorios
         entry.setField("author", "NomeAutorTest");
         entry.setField("title", "titulo_test");
         entry.setField("journal", "Publicação_Test");
@@ -74,6 +74,7 @@ public class ParcialText {
         assertEquals(expected, actual);
     }
 
+    //Teste  de campos obrigatorios sem inserção de BibTexKey
     @Test
     public void OBGTroundTripTest() throws IOException {
         // @formatter:off
@@ -106,7 +107,29 @@ public class ParcialText {
         assertEquals(bibtexEntry, actual);
     }
 
+    //Entrada parcial de campos obrigatórios
+    @Test
+    public void testOBGP() throws IOException {
+        StringWriter stringWriter = new StringWriter();
 
+        BibEntry entry = new BibEntry("1234", "article");
+        //entrada de campos obrigatorios
+        entry.setField("author", "NomeAutorTest");
+        entry.setField("title", "titulo_test");
+        writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
+
+        String actual = stringWriter.toString();
+
+        // @formatter:off
+        String expected = Globals.NEWLINE + "@Article{," + Globals.NEWLINE +
+                "  author = {NomeAutorTest}," + Globals.NEWLINE +
+                "  title  = {titulo_test}," + Globals.NEWLINE +
+               "}"+ Globals.NEWLINE;
+
+        // @formatter:on
+
+        assertEquals(expected, actual);
+    }
 }
 
 
