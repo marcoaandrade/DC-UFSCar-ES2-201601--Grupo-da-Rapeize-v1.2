@@ -127,7 +127,6 @@ public class ParcialText {
                "}"+ Globals.NEWLINE;
 
         // @formatter:on
-
         assertEquals(expected, actual);
     }
 }
