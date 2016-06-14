@@ -161,6 +161,53 @@ public class ParcialText {
         assertEquals(bibtexEntry, actual);
     }
     
+    
+    @Test
+    public void testVazio() throws IOException {
+        StringWriter stringWriter = new StringWriter();
+
+        BibEntry entry = new BibEntry("1234", "article");
+        writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
+
+        String actual = stringWriter.toString();
+
+        // @formatter:off
+        String expected = Globals.NEWLINE + "@Article{," + Globals.NEWLINE +
+                       "}"+ Globals.NEWLINE;
+
+
+
+
+        // @formatter:on
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void VazioroundTripTest() throws IOException {
+        // @formatter:off
+        String bibtexEntry = "@Article{," + Globals.NEWLINE +
+                              "}";
+        // @formatter:on
+
+        // read in bibtex string
+        ParserResult result = BibtexParser.parse(new StringReader(bibtexEntry));
+
+        Collection<BibEntry> entries = result.getDatabase().getEntries();
+        assertEquals(1, entries.size());
+
+        BibEntry entry = entries.iterator().next();
+        assertEquals(null, entry.getCiteKey());
+        assertEquals(0, entry.getFieldNames().size());
+
+        //write out bibtex string
+        StringWriter stringWriter = new StringWriter();
+        writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
+        String actual = stringWriter.toString();
+
+        assertEquals(bibtexEntry, actual);
+    }
+    
     //teste do campos opcionais parcialmente preenchidos
     @Test
     public void testOP() throws IOException {
