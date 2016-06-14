@@ -67,7 +67,7 @@ public class BookEntryTest {
 
     }
     
-}
+
 
 //Caso de teste 2: Entradas obrigatórias parcialmente preenchidas
     @Test
@@ -138,4 +138,41 @@ public class BookEntryTest {
         assertEquals("Neal Adams", entry.getField("author"));
 
         assertEquals(esperado, atual);
+        
+        }
+        
+        //Caso de teste 4: Entradas opcionais parcialmente preenchidas (com entradas obrigatórias parcialmente preenchidas)
+    @Test
+    public void testInsertBook4() throws IOException {
+        StringWriter stringWriter = new StringWriter();
+
+        BibEntry entry = new BibEntry("1234", "book");
+
+        entry.setField("title", "1234");
+        entry.setField("year", "2013");
+        entry.setField("author", "Scott Snyder");
+        entry.setField("bibtexkey", "W4");
+        entry.setField("volume", "Three");
+        entry.setField("edition", "1st");
+        entry.setField("number", "43");
+        entry.setField("month", "January");
+
+        writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
+
+        String atual = stringWriter.toString();
+
+        String esperado = Globals.NEWLINE + "@Book{W4," + Globals.NEWLINE + "  title   = {1234}," + Globals.NEWLINE
+                + "  year    = {2013}," + Globals.NEWLINE + "  author  = {Scott Snyder}," + Globals.NEWLINE
+                + "  volume  = {Three}," + Globals.NEWLINE + "  number  = {43}," + Globals.NEWLINE
+                + "  edition = {1st}," + Globals.NEWLINE + "  month   = {January}," + Globals.NEWLINE + "}"
+                + Globals.NEWLINE;
+
+        assertEquals("W4", entry.getCiteKey());
+        assertEquals(8, entry.getFieldNames().size());
+        Set<String> fields = entry.getFieldNames();
+        assertTrue(fields.contains("author"));
+        assertEquals("Scott Snyder", entry.getField("author"));
+
+        assertEquals(esperado, atual);
+        }
     }
