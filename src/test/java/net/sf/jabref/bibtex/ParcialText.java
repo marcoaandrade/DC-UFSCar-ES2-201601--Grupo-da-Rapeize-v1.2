@@ -129,6 +129,37 @@ public class ParcialText {
         // @formatter:on
         assertEquals(expected, actual);
     }
+    
+    //Entrada parcial de campos obrigatórios
+    @Test
+    public void OBGProundTripTest() throws IOException {
+        // @formatter:off
+        String bibtexEntry = "@Article{," + Globals.NEWLINE +
+                "  Author  = {NomeAutorTest}," + Globals.NEWLINE +
+                "  Title   = {titulo_test}," + Globals.NEWLINE +
+                "}";
+        // @formatter:on
+
+        // read in bibtex string
+        ParserResult result = BibtexParser.parse(new StringReader(bibtexEntry));
+
+        Collection<BibEntry> entries = result.getDatabase().getEntries();
+        assertEquals(1, entries.size());
+
+        BibEntry entry = entries.iterator().next();
+        assertEquals(null, entry.getCiteKey());
+        assertEquals(2, entry.getFieldNames().size());
+        Set<String> fields = entry.getFieldNames();
+        assertTrue(fields.contains("author"));
+        assertEquals("NomeAutorTest", entry.getField("author"));
+
+        //write out bibtex string
+        StringWriter stringWriter = new StringWriter();
+        writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
+        String actual = stringWriter.toString();
+
+        assertEquals(bibtexEntry, actual);
+    }
 }
 
 
