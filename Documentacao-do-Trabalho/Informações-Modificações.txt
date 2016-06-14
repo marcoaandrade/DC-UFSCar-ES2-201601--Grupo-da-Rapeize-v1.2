@@ -15,3 +15,12 @@ O que falta finalizar:
   -Adicionar o .doc/.pdf nessa pasta
 -Adicionar a importacao CSV (Marco Uski)
 
+
+
+Atividade faltantes (Mensagem do Ilgner no facebook)
+
+Testes de importação
+Manutenção referente ao ano - Ilgner
+Manutenção para validar os campos com cores (Verde válido - Vermelho Inváido)
+Teste referente a essa manutenção
+
