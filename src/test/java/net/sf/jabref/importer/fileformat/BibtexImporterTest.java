@@ -44,7 +44,7 @@ public class BibtexImporterTest {
     public void testImportEntries() throws IOException {
         try (InputStream stream = BibtexImporterTest.class.getResourceAsStream("BibtexImporter.examples.bib")) {
             List<BibEntry> bibEntries = importer.importEntries(stream, new OutputPrinterToNull());
-            
+
             //Os testes para livro e artigo foram adicionados nesse código  (Default 4 + Book/Article 11 = 15 Entradas)
             assertEquals(15, bibEntries.size());
 
@@ -165,6 +165,64 @@ public class BibtexImporterTest {
                     assertEquals("DC", entry.getField("editor"));
                 }
                 //ARTICLE
+                //Campos Obrigatorios totalmente preenchidos
+                else if (entry.getCiteKey().equals("chave01")) {
+                    assertEquals("Titulo-Importar-Teste", entry.getField("title"));
+                    assertEquals("chave01", entry.getField("bibtexkey"));
+                    assertEquals("Journal-Importar-Teste", entry.getField("journal"));
+                    assertEquals("2010", entry.getField("year"));
+                    assertEquals("Autor-Importar-Teste", entry.getField("author"));
+                }
+                //Campos Obrigatorios parcialmente preenchidos
+                else if (entry.getCiteKey().equals("chave02")) {
+                    assertEquals("Titulo-Imp-Parcial-Teste", entry.getField("title"));
+                    assertEquals("chave02", entry.getField("bibtexkey"));
+                    assertEquals("Autor-Imp-Parcial-Teste", entry.getField("author"));
+                }
+                //Campos opcionais totalmente preenchidos
+                else if (entry.getCiteKey().equals("chave03")) {
+                    assertEquals("Titulo-Importa", entry.getField("title"));
+                    assertEquals("chave03", entry.getField("bibtexkey"));
+                    assertEquals("Journal-Importar", entry.getField("journal"));
+                    assertEquals("2012", entry.getField("year"));
+                    assertEquals("Autor-Importar", entry.getField("author"));
+                    assertEquals("1st Volume", entry.getField("volume"));
+                    assertEquals("Number-Teste", entry.getField("number"));
+                    assertEquals("356", entry.getField("pages"));
+                    assertEquals("feb", entry.getField("month"));
+                    assertEquals("note-test", entry.getField("note"));
+                }
+                //Campos opcionais parcialmente preenchidos
+                else if (entry.getCiteKey().equals("chave04")) {
+                    assertEquals("Titulo-Importar-Teste", entry.getField("title"));
+                    assertEquals("chave04", entry.getField("bibtexkey"));
+                    assertEquals("Journal-Importar-Teste", entry.getField("journal"));
+                    assertEquals("2013", entry.getField("year"));
+                    assertEquals("Autor-Importar-Teste", entry.getField("author"));
+                    assertEquals("1st Volume", entry.getField("volume"));
+                    assertEquals("Number-Teste", entry.getField("number"));
+                    assertEquals("jan", entry.getField("month"));
+                }
+                //Todos os campos preenchidos- Obrigatorios, opcionais e extras
+                else if (entry.getCiteKey().equals("chave05")) {
+                    assertEquals("Title-All", entry.getField("title"));
+                    assertEquals("chave05", entry.getField("bibtexkey"));
+                    assertEquals("Journal-All", entry.getField("journal"));
+                    assertEquals("1988", entry.getField("year"));
+                    assertEquals("Autor-All", entry.getField("author"));
+                    assertEquals("1", entry.getField("volume"));
+                    assertEquals("4", entry.getField("number"));
+                    assertEquals("2", entry.getField("pages"));
+                    assertEquals("jan", entry.getField("month"));
+                    assertEquals("nota-teste-Import", entry.getField("note"));
+                    assertEquals("abstract-teste", entry.getField("abstract"));
+                    assertEquals("comment-import", entry.getField("comment"));
+                    assertEquals("crossref-import", entry.getField("crossref"));
+                    assertEquals("10.1590/s1984-02922008000100021", entry.getField("doi"));
+                    assertEquals("keywords-import", entry.getField("keywords"));
+                    assertEquals("review-teste", entry.getField("review"));
+                    assertEquals("www.ted.com", entry.getField("url"));
+                }
             }
         }
     }
