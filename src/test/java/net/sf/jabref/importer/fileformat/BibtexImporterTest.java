@@ -44,11 +44,12 @@ public class BibtexImporterTest {
     public void testImportEntries() throws IOException {
         try (InputStream stream = BibtexImporterTest.class.getResourceAsStream("BibtexImporter.examples.bib")) {
             List<BibEntry> bibEntries = importer.importEntries(stream, new OutputPrinterToNull());
-
-            assertEquals(4, bibEntries.size());
+            
+            //Os testes para livro e artigo foram adicionados nesse código  (Default 4 + Book/Article 11 = 15 Entradas)
+            assertEquals(15, bibEntries.size());
 
             for (BibEntry entry : bibEntries) {
-
+                //TESTES DEFAULT
                 if (entry.getCiteKey().equals("aksin")) {
                     assertEquals("Aks{\\i}n, {\\\"O}zge and T{\\\"u}rkmen, Hayati and Artok, Levent and {\\c{C}}etinkaya, " +
                                     "Bekir and Ni, Chaoying and B{\\\"u}y{\\\"u}kg{\\\"u}ng{\\\"o}r, Orhan and {\\\"O}zkal, Erhan",
@@ -89,6 +90,81 @@ public class BibtexImporterTest {
                     assertEquals("http://d-nb.info/107601965X", entry.getField("url"));
                     assertEquals("2016", entry.getField("year"));
                 }
+                //BOOK
+                //Todos os campos preenchidos - Obrigatorios, Opcionais e Extras
+                else if (entry.getCiteKey().equals("06key")) {
+                    assertEquals("Book X", entry.getField("title"));
+                    assertEquals("06key", entry.getField("bibtexkey"));
+                    assertEquals("ABC", entry.getField("publisher"));
+                    assertEquals("2012", entry.getField("year"));
+                    assertEquals("Neal Adams", entry.getField("author"));
+                    assertEquals("Editor EDT", entry.getField("editor"));
+                    assertEquals("Ten", entry.getField("volume"));
+                    assertEquals("421", entry.getField("number"));
+                    assertEquals("1", entry.getField("series"));
+                    assertEquals("Port Pier", entry.getField("address"));
+                    assertEquals("21st", entry.getField("edition"));
+                    assertEquals("August", entry.getField("month"));
+                    assertEquals("Note-Import", entry.getField("note"));
+                    assertEquals("Abstract-Import", entry.getField("abstract"));
+                    assertEquals("Comment-IMport", entry.getField("comment"));
+                    assertEquals("teste-crossref", entry.getField("crossref"));
+                    assertEquals("10.14195/978-989-26-1163-1", entry.getField("doi"));
+                    assertEquals("teste-keywords", entry.getField("keywords"));
+                    assertEquals("teste-review", entry.getField("review"));
+                    assertEquals("teste-url", entry.getField("url"));
+                }
+                //Campos opcionais parcialmente preenchidos
+                else if (entry.getCiteKey().equals("05key")) {
+                    assertEquals("Import-OpPartial", entry.getField("title"));
+                    assertEquals("05key", entry.getField("bibtexkey"));
+                    assertEquals("2016", entry.getField("year"));
+                    assertEquals("Scott Banks", entry.getField("author"));
+                    assertEquals("Five", entry.getField("volume"));
+                    assertEquals("51", entry.getField("number"));
+                    assertEquals("February", entry.getField("month"));
+                    assertEquals("3rd", entry.getField("edition"));
+                }
+                //Campos opcionais totalmente preenchidos
+                else if (entry.getCiteKey().equals("04key")) {
+                    assertEquals("Import-OpTotal", entry.getField("title"));
+                    assertEquals("04key", entry.getField("bibtexkey"));
+                    assertEquals("2020", entry.getField("year"));
+                    assertEquals("Scott Snydel", entry.getField("author"));
+                    assertEquals("Quatro", entry.getField("volume"));
+                    assertEquals("52", entry.getField("number"));
+                    assertEquals("4", entry.getField("series"));
+                    assertEquals("Address-Import", entry.getField("address"));
+                    assertEquals("1st", entry.getField("edition"));
+                    assertEquals("January", entry.getField("month"));
+                    assertEquals("Note", entry.getField("note"));
+                }
+                //Ano negativo
+                else if (entry.getCiteKey().equals("03key")) {
+                    assertEquals("Java-Imp", entry.getField("title"));
+                    assertEquals("03key", entry.getField("bibtexkey"));
+                    assertEquals("Novadel", entry.getField("publisher"));
+                    assertEquals("-2010", entry.getField("year"));
+                    assertEquals("Rafael To Import", entry.getField("author"));
+                    assertEquals("Hello World", entry.getField("editor"));
+                }
+                //Campos Obrigatorios parcialmente preenchidos
+                else if (entry.getCiteKey().equals("02key")) {
+                    assertEquals("Another Book - Import", entry.getField("title"));
+                    assertEquals("02key", entry.getField("bibtexkey"));
+                    assertEquals("Brian K. Vaughan - Import", entry.getField("author"));
+                    assertEquals("Vertigo - IMport", entry.getField("editor"));
+                }
+                //Campos obrigatorios totalmente preenchidos
+                else if (entry.getCiteKey().equals("01key")) {
+                    assertEquals("Book-Import-Title", entry.getField("title"));
+                    assertEquals("01key", entry.getField("bibtexkey"));
+                    assertEquals("BookImport-Publisher", entry.getField("publisher"));
+                    assertEquals("20", entry.getField("year"));
+                    assertEquals("Autor Importado", entry.getField("author"));
+                    assertEquals("DC", entry.getField("editor"));
+                }
+                //ARTICLE
             }
         }
     }
