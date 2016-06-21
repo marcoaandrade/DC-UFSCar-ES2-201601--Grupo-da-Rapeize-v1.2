@@ -6,8 +6,9 @@ Testes de Importaçao
 test/jabref...BibtexImporterTest.java
 test/resources... -BibtexImporter.examples.bib
 
-Manutencao
-
+Manutençoes
+-Validao campo "year": src/main/java/net.sf.jabref.model.entry/BibEntry.java
+-Importacao CSV: test/.../importer/fileformat/CsvImporterTest.java
 
 
 
