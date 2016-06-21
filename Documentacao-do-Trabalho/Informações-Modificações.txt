@@ -2,9 +2,11 @@ Testes para inserção presente nos arquivos:
 Artigo -ParcialText.java
 Livro  -BookEntryTest.java
 
-Importaçao
-BibtexImporterTest.java
-Bibtex
+Testes de Importaçao
+test/jabref...BibtexImporterTest.java
+test/resources... -BibtexImporter.examples.bib
+
+Manutencao
 
 
 
