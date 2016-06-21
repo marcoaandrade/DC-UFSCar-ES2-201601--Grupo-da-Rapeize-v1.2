@@ -213,6 +213,61 @@ public class BookEntryTest {
         assertEquals("Scott Snyder", entry.getField("author"));
 
         assertEquals(esperado, atual);
-        }
+    }
+        
+    //Caso de teste 6: Inserção de Item com ano negativo (inconsistência)
+    @Test
+    public void testInsertBook6() throws IOException {
+        StringWriter stringWriter = new StringWriter();
+
+        BibEntry entry = new BibEntry("Java", "book");
+
+        entry.setField("title", "Java");
+        entry.setField("publisher", "Novatec");
+        entry.setField("year","-2010");
+        entry.setField("author", "Rafael");
+        entry.setField("editor", "ABC");
+        entry.setField("bibtexkey", "1");
+
+        writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
+
+        String atual = stringWriter.toString();
+
+        String esperado = Globals.NEWLINE + "@Book{1,"
+                + Globals.NEWLINE + "  title     = {Java},"
+                + Globals.NEWLINE + "  publisher = {Novatec},"
+                + Globals.NEWLINE + "  year      = {-2010}," + Globals.NEWLINE + "  author    = {Rafael},"
+                + Globals.NEWLINE + "  editor    = {ABC},"
+                + Globals.NEWLINE + "}" + Globals.NEWLINE;
+
+        assertEquals("1", entry.getCiteKey());
+        assertEquals(6, entry.getFieldNames().size());
+        Set<String> fields = entry.getFieldNames();
+        assertTrue(fields.contains("author"));
+        assertEquals("Rafael", entry.getField("author"));
+
+        assertEquals(esperado, atual);
+    }
+
+    //Caso de teste 7: Inserção de Item Vazio
+    @Test
+    public void testInsertBook7() throws IOException {
+        StringWriter stringWriter = new StringWriter();
+
+        BibEntry entry = new BibEntry("", "book");
+
+        writer.write(entry, stringWriter, BibDatabaseMode.BIBTEX);
+
+        String atual = stringWriter.toString();
+
+        String esperado = Globals.NEWLINE + "@Book{," + Globals.NEWLINE +
+
+                "}" + Globals.NEWLINE;
+
+        assertEquals(null, entry.getCiteKey());
+        assertEquals(0, entry.getFieldNames().size());
+
+        assertEquals(esperado, atual);
+    }
 
     }
