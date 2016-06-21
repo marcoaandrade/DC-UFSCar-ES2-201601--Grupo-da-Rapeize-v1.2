@@ -2,30 +2,11 @@ Testes para inserção presente nos arquivos:
 Artigo -ParcialText.java
 Livro  -BookEntryTest.java
 
-IMPORTANTE:
-Antes de realizar/adicionar qualquer manutencao, vamos terminar os testes antes e salvar para que o professor possa rodar!!
-Vamos acabar enviando 2 arquivos jabRef(?)
-
-O que falta finalizar:
--Importacao de um arquivo .bib (Marco Andrade)
--Manutencao Ano (Ilgner)
--Manutencao simples (Mudanca de cor de uma insercao valida)
-  -Importacao de um .doc(?)
-  -mudança da cor de insercao(?)
--Terminar documentação de requitos
- -Adicionar o .doc/.pdf nesta pasta
--Terminar documentacao dos testes de inserçao e manutencao
-  -Adicionar o .doc/.pdf nessa pasta
--Adicionar a importacao CSV (Marco Uski)
+Importaçao
+BibtexImporterTest.java
+Bibtex
 
 
-
-Atividade faltantes (Mensagem do Ilgner no facebook)
-
-Testes de importação
-Manutenção referente ao ano - Ilgner
-Manutenção para validar os campos com cores (Verde válido - Vermelho Inváido)
-Teste referente a essa manutenção
 
 
 
