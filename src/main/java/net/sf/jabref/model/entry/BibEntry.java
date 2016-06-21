@@ -291,6 +291,24 @@ public class BibEntry {
         return null;
     }
 
+ /**
+     *  Função criada para gerar uma String aleateatória de tamanho 5.
+     *  Utilizada para auxiliar na criaÃ§Ã£o de uma bibtexkey automÃ¡tica.
+    */
+    protected String AutoString() {
+        String POSS_CHARS = 
+
+"AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890";
+        StringBuilder s = new StringBuilder();
+        Random rnd = new Random();
+        while (s.length() < 5) {
+            int index = (int) (rnd.nextFloat() * POSS_CHARS.length());
+            s.append(POSS_CHARS.charAt(index));
+        }
+        String Str = s.toString();
+        return Str;
+    }
+
     /**
      * Returns the bibtex key, or null if it is not set.
      */
@@ -298,9 +316,29 @@ public class BibEntry {
         return fields.get(KEY_FIELD);
     }
 
+ 
+    /**
+     * Validacao da bibtexkey
+     * - O primeiro caractere deve, obrigatoriamente, ser uma letra.
+     * - Definida pelo usuario ou automaticamente pelo sistema.
+    */
     public void setCiteKey(String newCiteKey) {
-        setField(KEY_FIELD, newCiteKey);
+        String auto;
+        String prefix = "bib";
+
+        char[] aux = newCiteKey.toCharArray();
+
+        auto = prefix.concat(AutoString());
+
+        if ((newCiteKey.length() < 2) || (Character.isDigit(aux[0]))) {
+            setField(KEY_FIELD, auto);
+        } else {
+            setField(KEY_FIELD, newCiteKey);
+        }
     }
+    
+    
+    
 
     public boolean hasCiteKey() {
         return !Strings.isNullOrEmpty(getCiteKey());
@@ -325,7 +363,72 @@ public class BibEntry {
     public void setField(String name, String value) {
         Objects.requireNonNull(name, "field name must not be null");
         Objects.requireNonNull(value, "field value must not be null");
+          //Validacao do campo "year"
+        Calendar calendar = GregorianCalendar.getInstance();
 
+        int min = 1900;
+        int max = calendar.get(GregorianCalendar.YEAR);
+
+        if (name.equals("year")) {
+            int year = Integer.parseInt(value);
+
+            if (value.length() != 4) {
+                clearField("year");
+                return;
+            } else {
+                char[] digitos = value.toCharArray();
+
+                if (!Character.isDigit(digitos[0]) && !Character.isDigit(digitos
+
+[1]) && !Character.isDigit(digitos[2])
+                        && !Character.isDigit(digitos[3])) {
+                    clearField("year");
+                    return;
+                } else {
+                    if ((year < min) || (year > max)) {
+                        clearField("year");
+                        return;
+                    }
+                }
+            }
+        }
+
+        //Validacao do campo opcional "number" (Manutenacao Extra)
+        if (name.equals("number")) {
+            char[] number = value.toCharArray();
+
+            for (int i = 0; i < value.length(); i++) {
+                if (Character.isLetter(number[i])) {
+                    clearField("number");
+                    return;
+                }
+            }
+        }
+
+
+        //Valicao do campo opicional "edition" (Manutencao Extra)
+        if (name.equals("edition")) {
+            char[] edition = value.toCharArray();
+            int aux = 0;
+
+            for (int i = 0; i < (value.length() - 1); i++) {
+                if (Character.isDigit(edition[i])) {
+                    aux++;
+                }
+            }
+
+            if ((aux != (value.length() - 1)) || (aux == 0)) {
+                clearField("edition");
+                return;
+            } else 
+             {
+                if (edition[value.length() - 1] != 'ª') 
+                {
+                    clearField("edition");
+                    return;
+                }
+             }
+            
         if (value.isEmpty()) {
             clearField(name);
             return;
